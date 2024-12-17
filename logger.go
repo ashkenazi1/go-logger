@@ -6,6 +6,12 @@ import (
 	"io"
 	"log/slog"
 	"os"
+	"sync"
+)
+
+var (
+	instance *slog.Logger
+	once     sync.Once
 )
 
 // ANSI color codes
@@ -87,7 +93,7 @@ func (h *ColorHandler) Handle(ctx context.Context, r slog.Record) error {
 }
 
 // NewLogger creates a new slog.Logger with environment-specific settings
-func NewLogger(cfg Config) *slog.Logger {
+func newLogger(cfg Config) *slog.Logger {
 	// If no writer is provided, default to stdout
 	if cfg.Writer == nil {
 		cfg.Writer = os.Stdout
@@ -116,4 +122,18 @@ func NewLogger(cfg Config) *slog.Logger {
 	}
 
 	return slog.New(handler)
+}
+
+func InitLogger(cfg Config) *slog.Logger {
+	once.Do(func() {
+		instance = newLogger(cfg)
+	})
+	return instance
+}
+
+func GetLogger() *slog.Logger {
+	if instance == nil {
+		panic("Logger not initialized. Call InitLogger first")
+	}
+	return instance
 }

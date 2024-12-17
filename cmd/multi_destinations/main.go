@@ -29,7 +29,7 @@ func main() {
 
 	multiWriter := io.MultiWriter(os.Stdout, telegramWriter)
 
-	logger := logger.NewLogger(logger.Config{
+	logger := logger.InitLogger(logger.Config{
 		Environment: "production",
 		LogLevel:    slog.LevelInfo,
 		Writer:      multiWriter,

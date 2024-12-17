@@ -25,7 +25,7 @@ func main() {
 		chatID:   "your-chat-id",
 	}
 
-	logger := logger.NewLogger(logger.Config{
+	logger := logger.InitLogger(logger.Config{
 		Environment: "production",
 		LogLevel:    slog.LevelInfo,
 		Writer:      telegramWriter,

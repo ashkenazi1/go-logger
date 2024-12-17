@@ -7,7 +7,7 @@ import (
 )
 
 func main() {
-	log := logger.NewLogger(logger.Config{
+	log := logger.InitLogger(logger.Config{
 		Environment: "development", // or "production"
 		LogLevel:    slog.LevelDebug,
 		UseColors:   true,
