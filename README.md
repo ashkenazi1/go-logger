@@ -25,7 +25,7 @@ import (
 )
 
 func main() {
-    log := logger.NewLogger(logger.Config{
+    log := logger.InitLogger(logger.Config{
         Environment: "development",  // or "production"
         LogLevel:    slog.LevelDebug,
         UseColors:   true,
@@ -52,7 +52,7 @@ logger := NewLogger(Config{
 
 // Write to multiple destinations
 multiWriter := io.MultiWriter(os.Stdout, file)
-logger := NewLogger(Config{
+logger := InitLogger(Config{
     Environment: "development",
     LogLevel:    slog.LevelDebug,
     UseColors:   true,
